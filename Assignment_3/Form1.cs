@@ -16,5 +16,10 @@ namespace Assignment_3
         {
             InitializeComponent();
         }
+
+        private void mainDataView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }
