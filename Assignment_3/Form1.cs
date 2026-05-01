@@ -13,12 +13,17 @@ namespace Assignment_3
 {
     public partial class Form1 : Form
     {
+        string CSVFilePath;
+
         public Form1()
         {
             InitializeComponent();
+        }
 
+        private void ActivateDataView()
+        {
             DataTable dtNew = new DataTable();
-            dtNew = CSVToDataTable("H:/Programming/Product_Catalogue.csv");
+            dtNew = CSVToDataTable(CSVFilePath);
 
             mainDataView.DataSource = dtNew;
             mainDataView.Refresh();
@@ -69,6 +74,21 @@ namespace Assignment_3
         private void mainDataView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void CSVFindButton_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.FileName = "";
+            openFileDialog1.Filter = "csv files (*.csv)|*.csv";
+            openFileDialog1.FilterIndex = 1;
+            openFileDialog1.RestoreDirectory = true;
+
+            if(openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                CSVFilePath = openFileDialog1.FileName;
+            }
+
+            ActivateDataView();
         }
     }
 

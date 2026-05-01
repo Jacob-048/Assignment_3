@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.mainDataView = new System.Windows.Forms.DataGridView();
+            this.CSVFindButton = new System.Windows.Forms.Button();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.mainDataView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -45,11 +47,26 @@
             this.mainDataView.TabIndex = 0;
             this.mainDataView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.mainDataView_CellContentClick);
             // 
+            // CSVFindButton
+            // 
+            this.CSVFindButton.Location = new System.Drawing.Point(125, 83);
+            this.CSVFindButton.Name = "CSVFindButton";
+            this.CSVFindButton.Size = new System.Drawing.Size(75, 23);
+            this.CSVFindButton.TabIndex = 1;
+            this.CSVFindButton.Text = "Open File";
+            this.CSVFindButton.UseVisualStyleBackColor = true;
+            this.CSVFindButton.Click += new System.EventHandler(this.CSVFindButton_Click);
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.CSVFindButton);
             this.Controls.Add(this.mainDataView);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -61,6 +78,8 @@
         #endregion
 
         private System.Windows.Forms.DataGridView mainDataView;
+        private System.Windows.Forms.Button CSVFindButton;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }
 
