@@ -17,21 +17,51 @@ namespace Assignment_3
         {
             InitializeComponent();
 
-            mainDataView.Columns.Add("ID", "ID");
-            mainDataView.Columns.Add("ProductName", "Name");
-            mainDataView.Columns.Add("ProductBrand", "Brand");
-            mainDataView.Columns.Add("ProductPrice", "Price");
-            mainDataView.Columns.Add("ProductDescription", "Description");
-            mainDataView.Columns.Add("ProductColor", "Colour");
-
             DataTable dtNew = new DataTable();
             dtNew = CSVToDataTable("H:/Programming/Product_Catalogue.csv");
+
+            mainDataView.DataSource = dtNew;
+            mainDataView.Refresh();
         }
 
         public DataTable CSVToDataTable(string path)
         {
             DataTable csvData = new DataTable();
 
+            try
+            {
+                //checks if it is a .csv file
+                if(path.EndsWith(".csv"))
+                {
+                    //reads the file with stream reader
+                    using (StreamReader sr = new StreamReader(path))
+                    {
+                        //Comma seperated values - gets the headers on the first line
+                        string[] headers = sr.ReadLine().Split(',');
+                        for (int i = 0; i < headers.Length; i++)
+                        {
+                            csvData.Columns.Add(headers[i]);
+                        }
+
+                        //reads the other rows of the .csv
+                        while (!sr.EndOfStream)
+                        {
+                            string[] rows = sr.ReadLine().Split(',');
+                            DataRow dr = csvData.NewRow();
+                            for (int i = 0; i < rows.Length; i++)
+                            {
+                                dr[i] = rows[i];
+                            }
+
+                            csvData.Rows.Add(dr);
+                        }
+                    }                    
+                }
+            }
+            catch (Exception e)
+            {
+                csvData.Columns.Add(e.Message);
+            }
 
             return csvData;
         }
