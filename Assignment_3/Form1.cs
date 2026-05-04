@@ -18,6 +18,12 @@ namespace Assignment_3
         public Form1()
         {
             InitializeComponent();
+            string temp = FindSavedCSV();
+            if(temp != "")
+            {
+                CSVFilePath = temp;
+                ActivateDataView();
+            }
         }
 
         private void ActivateDataView()
@@ -89,6 +95,19 @@ namespace Assignment_3
             }
 
             ActivateDataView();
+        }
+
+        private string FindSavedCSV()
+        {
+            string foundPath = "";
+
+            string temp = Application.StartupPath + @"\\saved.csv";
+            if(File.Exists(temp))
+            {
+                foundPath = temp;
+            }
+
+            return foundPath;
         }
     }
 
