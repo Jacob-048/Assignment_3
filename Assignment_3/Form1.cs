@@ -13,6 +13,7 @@ namespace Assignment_3
 {
     public partial class Form1 : Form
     {
+        List<Product> products = new List<Product>();
         string CSVFilePath;
 
         public Form1()
@@ -33,6 +34,73 @@ namespace Assignment_3
 
             mainDataView.DataSource = dtNew;
             mainDataView.Refresh();
+        }
+
+        public List<Product> CSVToProductList(string path)
+        {
+            List<Product> prod = new List<Product>();
+
+            try
+            {
+                if(path.EndsWith(".csv"))
+                {
+                    using(StreamReader sr = new StreamReader(path))
+                    {
+                        //read the first line to skip the headers
+                        sr.ReadLine();
+
+                        Product newProduct = new Product();
+
+                        while(!sr.EndOfStream)
+                        {
+                            string[] line = sr.ReadLine().Split(',');
+
+                            for(int i = 0; i < line.Length; i++)
+                            {
+                                
+                                switch(i)
+                                {
+                                    //ID
+                                    case 0:
+                                        newProduct.ID = int.Parse(line[i]);
+                                        break;
+                                    //Name
+                                    case 1:
+                                        newProduct.productName = line[i];
+                                        break;
+                                    //Brand
+                                    case 2:
+                                        newProduct.productBrand = line[i];
+                                        break;
+                                    //Price
+                                    case 3:
+                                        newProduct.price = double.Parse(line[i]);
+                                        break;
+                                    //Description
+                                    case 4:
+                                        newProduct.description = line[i];
+                                        break;
+                                    //Color
+                                    case 5:
+                                        newProduct.color = line[i];
+                                        break;
+                                    default:
+                                        break;
+
+                                }
+                            }
+
+                            prod.Add(newProduct);
+                        }
+                    }
+                }
+            }
+            catch
+            {
+
+            }
+
+            return prod;
         }
 
         public DataTable CSVToDataTable(string path)
@@ -107,27 +175,19 @@ namespace Assignment_3
                 foundPath = temp;
             }
 
-            return foundPath;
-        }
-
-        private void SaveCSV()
-        {
-            string path = Application.StartupPath + @"\\saved.csv";
-            StreamWriter sw = new StreamWriter(path);
-
-            
+            return foundPath;  
         }
     }
 
     //struct to handle products
     public struct Product
     {
-        int ID;
-        string productName;
-        string productBrand;
-        float price;
-        string description;
-        string color;
+        public int ID;
+        public string productName;
+        public string productBrand;
+        public double price;
+        public string description;
+        public string color;
 
         public Product(int newID, string newName, string newBrand, float newPrice, string newDescription, string newColor)
         {
