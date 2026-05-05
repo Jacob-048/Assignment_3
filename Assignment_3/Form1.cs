@@ -109,6 +109,14 @@ namespace Assignment_3
 
             return foundPath;
         }
+
+        private void SaveCSV()
+        {
+            string path = Application.StartupPath + @"\\saved.csv";
+            StreamWriter sw = new StreamWriter(path);
+
+            
+        }
     }
 
     //struct to handle products
