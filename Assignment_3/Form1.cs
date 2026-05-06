@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Reflection;
 
 namespace Assignment_3
 {
@@ -19,18 +20,21 @@ namespace Assignment_3
         public Form1()
         {
             InitializeComponent();
-            string temp = FindSavedCSV();
+            /*string temp = FindSavedCSV();
             if(temp != "")
             {
                 CSVFilePath = temp;
-                ActivateDataView();
-            }
+                
+            }*/
+            ActivateDataView();
         }
 
         private void ActivateDataView()
         {
             DataTable dtNew = new DataTable();
-            dtNew = CSVToDataTable(CSVFilePath);
+            //dtNew = CSVToDataTable(CSVFilePath);
+            products = CSVToProductList("./saved.csv");
+            dtNew = ProductsToDataTable(products);
 
             mainDataView.DataSource = dtNew;
             mainDataView.Refresh();
@@ -101,6 +105,23 @@ namespace Assignment_3
             }
 
             return prod;
+        }
+
+        public DataTable ProductsToDataTable(List<Product> prod)
+        {
+            DataTable table = new DataTable();
+            Type structType = typeof(Product);
+
+            FieldInfo[] fields = structType.GetFields();
+
+            for(int i = 0; i < fields.Length; i++)
+            {
+                table.Columns.Add(fields[i].Name);
+            }
+
+            
+
+            return table;
         }
 
         public DataTable CSVToDataTable(string path)
