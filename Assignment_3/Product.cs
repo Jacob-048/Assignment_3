@@ -11,10 +11,10 @@ namespace Assignment_3
         public int productID { get; set; }
         public string productName { get; set; }
         public string productBrand { get; set; }
-        public double productPrice { get; set; }
+        public decimal productPrice { get; set; }
         public int productQuantity { get; set; }
 
-        public Product(int id, string name, string brand, float price, int quantity)
+        public Product(int id, string name, string brand, decimal price, int quantity)
         {
             productID = id;
             productName = name;
