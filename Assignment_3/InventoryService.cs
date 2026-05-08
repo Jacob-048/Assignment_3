@@ -55,7 +55,7 @@ namespace Assignment_3
 
             foreach(var p in products)
             {
-                string line = $"{p.productID},{p.productName},{p.productBrand},{p.productPrice},{p.productQuantity}";
+                string line = $"{p.productID},{p.productName},{p.productBrand},{p.productPrice*100},{p.productQuantity}";
             }
         }
     }
